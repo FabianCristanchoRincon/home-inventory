@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.con = void 0;
 const mysql_1 = __importDefault(require("mysql"));
 exports.con = mysql_1.default.createConnection({
-    host: "localhost",
-    database: "home_inventory",
-    user: "root",
-    password: ""
+    host: "bdfw3016n0e9jabh5fto-mysql.services.clever-cloud.com",
+    database: "bdfw3016n0e9jabh5fto",
+    user: "ubfsr3ob157jitbe",
+    password: "BVXtaIlVnN2ITKj3drZe"
 });
