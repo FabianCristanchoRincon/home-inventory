@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const token_1 = __importDefault(require("../classes/token"));
 const authentication_1 = require("../middlewares/authentication");
 const connection_1 = require("../classes/connection");
@@ -37,7 +37,7 @@ userRoutes.post("/login", (req, res) => {
                 });
             }
             else {
-                if (bcrypt_1.default.compareSync(body.password, data.password)) {
+                if (bcryptjs_1.default.compareSync(body.password, data.password)) {
                     let queryPerson = `SELECT u.id AS id, name, last_name, email, avatar, roles_idRoles FROM persons p, users u, user_has_roles r WHERE p.user_id = u.id AND u.username = '${body.username}' AND r.user_id = u.id`;
                     connection_1.con.query(queryPerson, function (err, resp) {
                         if (err)
@@ -82,7 +82,7 @@ userRoutes.post("/create", (req, res) => {
         last_name: req.body.lastname,
         email: req.body.email,
         username: req.body.username,
-        password: bcrypt_1.default.hashSync(req.body.password, 10),
+        password: bcryptjs_1.default.hashSync(req.body.password, 10),
         avatar: req.body.avatar,
         status: 1
     };

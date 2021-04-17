@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import Token from "../classes/token";
 import { verifyToken } from "../middlewares/authentication";
 import { con } from "../classes/connection";
@@ -25,7 +25,7 @@ userRoutes.post("/login", (req: Request, res: Response) => {
                     message: 'El usuario no se encuentra activo en el sistema. Por favor comuniquese con los administradores para que activen la cuenta'
                 })
             } else {
-                if (bcrypt.compareSync(body.password, data.password)) {
+                if (bcryptjs.compareSync(body.password, data.password)) {
                     let queryPerson = `SELECT u.id AS id, name, last_name, email, avatar, roles_idRoles FROM persons p, users u, user_has_roles r WHERE p.user_id = u.id AND u.username = '${body.username}' AND r.user_id = u.id`;
                     con.query(queryPerson, function (err, resp) {
                         if (err)
@@ -72,7 +72,7 @@ userRoutes.post("/create", (req: Request, res: Response) => {
         last_name: req.body.lastname,
         email: req.body.email,
         username: req.body.username,
-        password: bcrypt.hashSync(req.body.password, 10),
+        password: bcryptjs.hashSync(req.body.password, 10),
         avatar: req.body.avatar,
         status: 1
     };
