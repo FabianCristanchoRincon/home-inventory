@@ -210,7 +210,7 @@ listRoutes.post("/delete", authentication_1.verifyToken, (req, res) => {
                 try {
                     if (result_1_1 && !result_1_1.done && (_a = result_1.return)) yield _a.call(result_1);
                 }
-                catch { if (e_1) throw e_1.error; }
+                catch { throw e_1.error; }
             }
             let sql = `DELETE FROM lists WHERE id = ${req.body.id}`;
             connection_1.con.query(sql, function (err, resul) {
